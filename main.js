@@ -1,0 +1,163 @@
+// 3D Scene for Hero Section
+document.addEventListener('DOMContentLoaded', function () {
+  // Three.js scene
+  const canvasContainer = document.getElementById('canvas-container');
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  canvasContainer.appendChild(renderer.domElement);
+
+  // Particles
+  const particlesGeometry = new THREE.BufferGeometry();
+  const particlesCount = 1000;
+
+  const posArray = new Float32Array(particlesCount * 3);
+
+  for (let i = 0; i < particlesCount * 3; i++) {
+    posArray[i] = (Math.random() - 0.5) * 10;
+  }
+
+  particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+  const particlesMaterial = new THREE.PointsMaterial({
+    size: 0.02,
+    color: 0x00f7ff,
+    transparent: true,
+    opacity: 0.8,
+    blending: THREE.AdditiveBlending,
+  });
+
+  const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+  scene.add(particlesMesh);
+
+  camera.position.z = 3;
+
+  // Animation loop
+  function animate() {
+    requestAnimationFrame(animate);
+
+    particlesMesh.rotation.x += 0.0005;
+    particlesMesh.rotation.y += 0.0005;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  // Handle window resize
+  window.addEventListener('resize', function () {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // Cursor highlight effect
+  const cursorHighlight = document.getElementById('cursor-highlight');
+  document.addEventListener('mousemove', function (e) {
+    cursorHighlight.style.left = e.clientX + 'px';
+    cursorHighlight.style.top = e.clientY + 'px';
+  });
+
+  // Particles effect for contact section
+  const particlesContainer = document.getElementById('particles');
+  const particleCount = 50;
+
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = Math.random() * 100 + '%';
+    particlesContainer.appendChild(particle);
+
+    // Animate particles
+    setInterval(() => {
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+    }, Math.random() * 3000 + 2000);
+  }
+
+  // GSAP animations
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Animate sections on scroll
+  gsap.utils.toArray('.section').forEach(section => {
+    gsap.from(section, {
+      scrollTrigger: {
+        trigger: section,
+        start: 'top bottom',
+        toggleActions: 'play none none none',
+      },
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out',
+    });
+  });
+
+  // Animate skill cards
+  gsap.utils.toArray('.skill-card').forEach((card, i) => {
+    gsap.from(card, {
+      scrollTrigger: {
+        trigger: card,
+        start: 'top 80%',
+        toggleActions: 'play none none none',
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.5,
+      delay: i * 0.1,
+      ease: 'power3.out',
+    });
+  });
+
+  // Project slider navigation
+  const slider = document.querySelector('.project-slider');
+  const prevBtn = document.querySelector('.absolute.left-0 button');
+  const nextBtn = document.querySelector('.absolute.right-0 button');
+
+  let currentSlide = 0;
+  const slideWidth = document.querySelector('.project-card').offsetWidth;
+
+  nextBtn.addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % document.querySelectorAll('.project-card').length;
+    slider.scrollTo({
+      left: currentSlide * slideWidth,
+      behavior: 'smooth',
+    });
+  });
+
+  prevBtn.addEventListener('click', () => {
+    currentSlide =
+      (currentSlide - 1 + document.querySelectorAll('.project-card').length) %
+      document.querySelectorAll('.project-card').length;
+    slider.scrollTo({
+      left: currentSlide * slideWidth,
+      behavior: 'smooth',
+    });
+  });
+
+  // Smooth scrolling for navigation
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth',
+      });
+    });
+  });
+
+  // Dark/light mode toggle (simplified)
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (!prefersDark) {
+    document.documentElement.classList.add('light-mode');
+  }
+
+  // Running text animation
+  const runningText = document.querySelector('.running-text');
+  if (runningText) {
+    runningText.innerHTML = runningText.textContent.repeat(3);
+  }
+});
