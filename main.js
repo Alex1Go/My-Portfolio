@@ -160,4 +160,62 @@ document.addEventListener('DOMContentLoaded', function () {
   if (runningText) {
     runningText.innerHTML = runningText.textContent.repeat(3);
   }
+
+  // НОВАЯ ФУНКЦИЯ: Фильтрация скилов по категориям
+  function initSkillsFilter() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const skillCards = document.querySelectorAll('.skill-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const filter = this.getAttribute('data-filter');
+
+        // Обновляем активную кнопку
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+
+        // Фильтруем карточки
+        skillCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+
+          if (filter === 'all' || category === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  }
+
+  // Инициализируем фильтр скилов
+  initSkillsFilter();
+
+  // Анимация прогресс-баров при появлении в области видимости
+  function animateProgressBars() {
+    const skillCards = document.querySelectorAll('.skill-card:not(.hidden)');
+
+    skillCards.forEach((card, index) => {
+      const progressFill = card.querySelector('.progress-bar-fill');
+      const targetWidth = progressFill.style.width;
+
+      // Сбрасываем ширину
+      progressFill.style.width = '0%';
+
+      // Анимируем с задержкой
+      setTimeout(() => {
+        progressFill.style.width = targetWidth;
+      }, index * 100);
+    });
+  }
+
+  // Запускаем анимацию прогресс-баров при загрузке
+  setTimeout(animateProgressBars, 500);
+
+  // Перезапускаем анимацию при смене фильтра
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      setTimeout(animateProgressBars, 100);
+    });
+  });
 });

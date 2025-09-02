@@ -38,9 +38,29 @@ body {
     overflow: hidden;
 }
 
+/* Состояния карточек скилов для фильтрации */
+.skill-card {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.5s ease;
+    display: block;
+}
+
+.skill-card.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+    display: none;
+}
+
+/* Улучшенная анимация для skill-card при hover */
 .skill-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.05);
     box-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary);
+}
+
+.skill-card:hover .progress-bar-fill {
+    box-shadow: 0 0 10px var(--primary);
 }
 
 .project-card {
@@ -49,6 +69,14 @@ body {
 
 .project-card:hover {
     transform: scale(1.05);
+}
+
+.project-card:hover .card-icon {
+    opacity: 0;
+}
+
+.project-card:hover .card-image {
+    opacity: 1;
 }
 
 .cursor-highlight {
@@ -123,11 +151,12 @@ body {
     width: 100%;
 }
 
+/* Анимация прогресс-баров с использованием ваших переменных */
 .progress-bar {
     position: relative;
-    height: 5px;
+    height: 8px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
 }
 
@@ -137,7 +166,8 @@ body {
     left: 0;
     height: 100%;
     background: linear-gradient(90deg, var(--primary), var(--secondary));
-    border-radius: 5px;
+    border-radius: 8px;
+    transition: width 0.8s ease;
 }
 
 input,
@@ -226,10 +256,22 @@ textarea:focus {
     transition: opacity 0.3s ease;
 }
 
-.project-card:hover .card-icon {
-    opacity: 0;
+
+/* ----- */
+
+.filter-btn {
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.project-card:hover .card-image {
-    opacity: 1;
+.filter-btn.active {
+    background-color: rgba(0, 247, 255, 0.1);
+    color: var(--primary);
+    box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+}
+
+.filter-btn:not(.active):hover {
+    background-color: rgba(0, 247, 255, 0.1);
+    color: var(--primary);
+    box-shadow: 0 0 5px var(--primary);
 }
