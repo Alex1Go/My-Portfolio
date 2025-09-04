@@ -1,5 +1,37 @@
 // 3D Scene for Hero Section
 document.addEventListener('DOMContentLoaded', function () {
+  // ========== THEME TOGGLE FUNCTIONALITY ==========
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  const body = document.body;
+
+  // Check for saved theme preference or default to 'dark'
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+
+  // Apply saved theme
+  if (savedTheme === 'light') {
+    body.classList.add('light-theme');
+    themeIcon.classList.remove('fa-sun');
+    themeIcon.classList.add('fa-moon');
+  }
+
+  // Theme toggle event listener
+  themeToggle.addEventListener('click', function () {
+    if (body.classList.contains('light-theme')) {
+      // Switch to dark theme
+      body.classList.remove('light-theme');
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      // Switch to light theme
+      body.classList.add('light-theme');
+      themeIcon.classList.remove('fa-sun');
+      themeIcon.classList.add('fa-moon');
+      localStorage.setItem('theme', 'light');
+    }
+  });
+
   // Three.js scene
   const canvasContainer = document.getElementById('canvas-container');
 
@@ -9,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
   renderer.setSize(window.innerWidth, window.innerHeight);
   canvasContainer.appendChild(renderer.domElement);
 
-  // Particles
+  // Частицы
   const particlesGeometry = new THREE.BufferGeometry();
   const particlesCount = 1000;
 
@@ -27,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
     transparent: true,
     opacity: 0.8,
     blending: THREE.AdditiveBlending,
+    depthWrite: false,
   });
 
   const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
@@ -34,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   camera.position.z = 3;
 
-  // Animation loop
+  // Цикл анимации
   function animate() {
     requestAnimationFrame(animate);
 
@@ -46,21 +79,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
   animate();
 
-  // Handle window resize
+  // Управление изменением размера окна
   window.addEventListener('resize', function () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
 
-  // Cursor highlight effect
+  // Эффект подсветки курсора
   const cursorHighlight = document.getElementById('cursor-highlight');
   document.addEventListener('mousemove', function (e) {
     cursorHighlight.style.left = e.clientX + 'px';
     cursorHighlight.style.top = e.clientY + 'px';
   });
 
-  // Particles effect for contact section
+  // Эффект частиц для контактного сечения
   const particlesContainer = document.getElementById('particles');
   const particleCount = 50;
 
@@ -71,17 +104,17 @@ document.addEventListener('DOMContentLoaded', function () {
     particle.style.top = Math.random() * 100 + '%';
     particlesContainer.appendChild(particle);
 
-    // Animate particles
+    // Анимация частиц
     setInterval(() => {
       particle.style.left = Math.random() * 100 + '%';
       particle.style.top = Math.random() * 100 + '%';
     }, Math.random() * 3000 + 2000);
   }
 
-  // GSAP animations
+  // Анимации GSAP
   gsap.registerPlugin(ScrollTrigger);
 
-  // Animate sections on scroll
+  // Анимация секций при скролле
   gsap.utils.toArray('.section').forEach(section => {
     gsap.from(section, {
       scrollTrigger: {
@@ -96,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Animate skill cards
+  // Анимация карточек скилов
   gsap.utils.toArray('.skill-card').forEach((card, i) => {
     gsap.from(card, {
       scrollTrigger: {
@@ -112,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Project slider navigation
+  // Навигация по слайдеру проекта
   const slider = document.querySelector('.project-slider');
   const prevBtn = document.querySelector('.absolute.left-0 button');
   const nextBtn = document.querySelector('.absolute.right-0 button');
@@ -138,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Smooth scrolling for navigation
+  // Плавная прокрутка для навигации
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
@@ -149,19 +182,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Dark/light mode toggle (simplified)
+  // Переключение темного/светлого режима (упрощенно)
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   if (!prefersDark) {
     document.documentElement.classList.add('light-mode');
   }
 
-  // Running text animation
+  // Бегущий текст
   const runningText = document.querySelector('.running-text');
   if (runningText) {
     runningText.innerHTML = runningText.textContent.repeat(3);
   }
 
-  // НОВАЯ ФУНКЦИЯ: Фильтрация скилов по категориям
+  // Фильтрация скилов по категориям
   function initSkillsFilter() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const skillCards = document.querySelectorAll('.skill-card');
