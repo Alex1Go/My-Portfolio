@@ -307,7 +307,7 @@ textarea:focus {
 }
 
 /* THEME TOGGLE BUTTON STYLES */
-.theme-toggle {
+/* .theme-toggle {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -329,10 +329,10 @@ textarea:focus {
 .theme-toggle:hover {
     box-shadow: 0 0 15px var(--primary);
     transform: scale(1.1);
-}
+} */
 
 /* LIGHT THEME OVERRIDES */
-.light-theme .section {
+/* .light-theme .section {
     background: var(--bg-primary);
 }
 
@@ -362,4 +362,4 @@ textarea:focus {
 
 .light-theme footer {
     background: rgba(255, 255, 255, 0.5) !important;
-}
+} */
