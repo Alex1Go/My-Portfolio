@@ -3,7 +3,6 @@ export function initProjectSlider() {
   const slider = document.querySelector('.project-slider');
   const projectCards = document.querySelectorAll('.project-card');
 
-  // Исправлены селекторы кнопок
   const prevBtn = document.querySelector('.absolute.left-0 button');
   const nextBtn = document.querySelector('.absolute.right-0 button');
 
@@ -14,7 +13,6 @@ export function initProjectSlider() {
 
   let currentSlide = 0;
 
-  // Функция для получения ширины слайда с учетом отступов
   function getSlideWidth() {
     const card = projectCards[0];
     const cardRect = card.getBoundingClientRect();
@@ -24,7 +22,6 @@ export function initProjectSlider() {
     return cardRect.width + marginLeft + marginRight;
   }
 
-  // Функция для обновления позиции слайдера
   function updateSliderPosition() {
     const slideWidth = getSlideWidth();
     slider.scrollTo({
@@ -33,26 +30,22 @@ export function initProjectSlider() {
     });
   }
 
-  // Next button handler
   nextBtn.addEventListener('click', () => {
     currentSlide = (currentSlide + 1) % projectCards.length;
     updateSliderPosition();
   });
 
-  // Previous button handler
   prevBtn.addEventListener('click', () => {
     currentSlide = (currentSlide - 1 + projectCards.length) % projectCards.length;
     updateSliderPosition();
   });
 
-  // Handle window resize
   function handleResize() {
     updateSliderPosition();
   }
 
   window.addEventListener('resize', handleResize);
 
-  // Return cleanup function
   return () => {
     window.removeEventListener('resize', handleResize);
   };

@@ -9,9 +9,6 @@ export function initThemeToggle() {
     return;
   }
 
-  // Check for saved theme preference or default to 'dark'
-  // ВНИМАНИЕ: localStorage не работает в Claude artifacts
-  // В реальном проекте раскомментируйте следующую строку:
   // const savedTheme = localStorage.getItem('theme') || 'dark';
 
   // Для artifacts используем переменную:

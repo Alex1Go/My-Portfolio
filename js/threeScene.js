@@ -14,7 +14,6 @@ export function initThreeScene() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   canvasContainer.appendChild(renderer.domElement);
 
-  // Particles
   const particlesGeometry = new THREE.BufferGeometry();
   const particlesCount = 1000;
   const posArray = new Float32Array(particlesCount * 3);
@@ -38,7 +37,6 @@ export function initThreeScene() {
   scene.add(particlesMesh);
   camera.position.z = 3;
 
-  // Animation loop
   function animate() {
     requestAnimationFrame(animate);
     particlesMesh.rotation.x += 0.0005;
@@ -48,7 +46,6 @@ export function initThreeScene() {
 
   animate();
 
-  // Handle window resize
   function handleResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -57,7 +54,6 @@ export function initThreeScene() {
 
   window.addEventListener('resize', handleResize);
 
-  // Return cleanup function
   return () => {
     window.removeEventListener('resize', handleResize);
     canvasContainer.removeChild(renderer.domElement);

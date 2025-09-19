@@ -1,6 +1,5 @@
 // scrollAnimations.js - GSAP Scroll Animations
 export function initScrollAnimations() {
-  // Check if GSAP and ScrollTrigger are available
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
     console.warn('GSAP or ScrollTrigger not loaded');
     return;
@@ -8,7 +7,6 @@ export function initScrollAnimations() {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Section animations on scroll
   gsap.utils.toArray('.section').forEach(section => {
     gsap.from(section, {
       scrollTrigger: {
@@ -23,7 +21,6 @@ export function initScrollAnimations() {
     });
   });
 
-  // Skill cards animations
   gsap.utils.toArray('.skill-card').forEach((card, i) => {
     gsap.from(card, {
       scrollTrigger: {
