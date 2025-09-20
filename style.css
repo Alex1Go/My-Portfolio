@@ -339,13 +339,12 @@ textarea:focus {
     }
 }
 
-/* Дополнительные стили для мобильного меню */
+/* мобильное меню */
 #mobile-menu-overlay {
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
 }
 
-/* Hover эффекты для мобильных ссылок */
 .mobile-menu-link {
     position: relative;
     transition: all 0.3s ease;
@@ -384,14 +383,10 @@ nav button.md\:hidden i {
     transform: translateY(0);
 }
 
-@media (max-width: 450px) {
+
+@media (max-width: 500px) {
     .section {
         padding: 5rem 0;
-    }
-
-    .container {
-        padding-left: 1rem;
-        padding-right: 1rem;
     }
 
     .hero_btn {
@@ -399,14 +394,12 @@ nav button.md\:hidden i {
         text-align: center;
     }
 
-    .filter-btn {
-        padding-left: 1rem;
-        padding-right: 1rem;
+    .skill-card>div {
+        flex-direction: column;
     }
 
-    .skill-card {
-        padding: 0.5rem 0.5rem;
-
+    .card-image {
+        opacity: 1;
     }
 }
 
