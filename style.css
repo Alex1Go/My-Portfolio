@@ -25,7 +25,7 @@ body {
 }
 
 .neon-text {
-    text-shadow: 0 0 1px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+    text-shadow: 0 0 3px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
 }
 
 .neon-border {
@@ -49,19 +49,6 @@ body {
     position: relative;
     overflow: hidden;
 }
-
-@media (max-width: 450px) {
-    .section {
-        padding: 3rem 0;
-    }
-
-    .hero_btn {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-
 
 .filter-btn {
     transition: all 0.3s ease;
@@ -395,6 +382,32 @@ nav button.md\:hidden i {
 
 .modal.animate-fade-in .modal-content {
     transform: translateY(0);
+}
+
+@media (max-width: 450px) {
+    .section {
+        padding: 5rem 0;
+    }
+
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .hero_btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .filter-btn {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .skill-card {
+        padding: 0.5rem 0.5rem;
+
+    }
 }
 
 /* THEME TOGGLE BUTTON STYLES */
