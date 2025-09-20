@@ -25,7 +25,7 @@ body {
 }
 
 .neon-text {
-    text-shadow: 0 0 3px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+    text-shadow: 0 0 4px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
 }
 
 .neon-border {
